@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "labeling_test"
+  site-url: "https://HasanGoni.github.io/labeling_test"
+  description: "different tool for automation process of labeling will be tested here"
+  repo-branch: main
+  repo-url: "https://github.com/HasanGoni/labeling_test"
