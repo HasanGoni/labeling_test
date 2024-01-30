@@ -397,10 +397,13 @@ def show_all_masks(
 # %% ../nbs/01_auto_test.ipynb 52
 def get_best_mask_bbox(
     outputs:Dict,
-    masks:List[torch.Tensor]
+    masks:List[torch.Tensor],
+    best_idx=None,
     ):
     ' Get bbox of the from the masks, based on iou scores'
-    best_idx = torch.argmax(outputs['iou_scores']).item()
+    if best_idx is None:
+        best_idx = torch.argmax(outputs['iou_scores']).item()
+    else: best_idx = best_idx
     y, x = np.nonzero(masks[best_idx])
     input_boxes = [[[x.min(), y.min(), x.max(), y.max()]]]
     return input_boxes, best_idx
@@ -416,6 +419,7 @@ def get_last_refined_masks(
     print_:bool, # whether to print shape of some tensors
     outputs:Dict,  # outputs get from first prediction
     masks:Tuple[torch.Tensor], # masks got from fast prediction
+    best_idx:int, # best mask index
     ):
     ' Get refined masks from the model based on reference image'
 
@@ -428,7 +432,7 @@ def get_last_refined_masks(
         device=device,
         print_=print_
     )
-    bbox, best_idx = get_best_mask_bbox(outputs=outputs, masks=masks)
+    bbox, best_idx = get_best_mask_bbox(outputs=outputs, masks=masks, best_idx=best_idx)
     inputs = processor(
                       tst_img,
                       input_points=[topk_xy.tolist()],
