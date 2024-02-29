@@ -4,7 +4,8 @@
 __all__ = ['show_', 'get_image_embedding', 'get_preprocess_shape', 'normalize_and_padding', 'prepare_mask',
            'get_target_object_in_ref_image', 'get_norm_', 'get_cosine_sim', 'post_process_masks', 'tg_attention_layer',
            'point_selection', 'get_pos_neg_lp', 'frm_tst_img_to_a_sim', 'get_first_prediction',
-           'get_first_refined_mask', 'show_all_masks', 'get_best_mask_bbox', 'get_last_refined_masks']
+           'get_first_refined_mask', 'show_all_masks', 'get_best_mask_bbox', 'get_last_refined_masks', 'save_mask',
+           'show_mask']
 
 # %% ../nbs/01_auto_test.ipynb 3
 from huggingface_hub import hf_hub_download
@@ -455,3 +456,30 @@ def get_last_refined_masks(
         inputs["reshaped_input_sizes"].cpu()
         )[0].squeeze().numpy()
     return final_ou, masks
+
+# %% ../nbs/01_auto_test.ipynb 57
+def save_mask(
+    masks:List[np.ndarray], # list of masks 
+    path:Union[str,Path],
+    outputs:Dict, # outputs from the huggingface model
+    index:Union[int, None]=None,
+    ):
+    ' Save mask to path'
+    if index is None:
+        index = torch.argmax(outputs['iou_scores']).item()
+    mask = masks[index]
+    if np.max(mask) ==1:
+        mask = mask.astype(np.uint8) * 255
+    cv2.imwrite(f'{path}', mask)
+
+
+# %% ../nbs/01_auto_test.ipynb 60
+def show_mask(mask, ax, random_color=False):
+    if random_color:
+        color = np.concatenate([np.random.random(3), np.array([0.6])], axis=0)
+    else:
+        color = np.array([255, 0, 0, 0.6])
+    h, w = mask.shape[-2:]
+    mask_image = mask.reshape(h, w, 1) * color.reshape(1, 1, -1)
+    ax.imshow(mask_image)
+
