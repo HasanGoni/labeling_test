@@ -206,6 +206,9 @@ save_mask(
 
 # Grouding Dino Labeling
 
+Notebook copied from
+[here](https://github.com/NielsRogge/Transformers-Tutorials/blob/master/Grounding%20DINO/GroundingDINO_with_Segment_Anything.ipynb)
+
 #### get the data
 
 ``` python
