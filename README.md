@@ -209,15 +209,46 @@ save_mask(
 Notebook copied from
 [here](https://github.com/NielsRogge/Transformers-Tutorials/blob/master/Grounding%20DINO/GroundingDINO_with_Segment_Anything.ipynb)
 
+# First we will see how the model performs on the image
+
+``` python
+labels=["a dog."]
+polygon_refinement=True
+threshold=0.3
+detector_id="IDEA-Research/grounding-dino-tiny"
+segmenter_id="facebook/sam-vit-base"    
+
+file_name = hf_hub_download(
+    repo_id="nielsr/persam-dog", 
+    filename="dog.jpg", 
+    repo_type="dataset")
+
+ref_image = Image.open(file_name).convert('RGB')
+# testing together
+cv_img, segs = grounding_dino_segmentation(
+    image=ref_image,
+    labels=["a dog."],
+    threshold=threshold,
+    polygon_refinement=polygon_refinement,
+    detector_id=detector_id,
+    segmenter_id=segmenter_id)
+
+annotated_img = get_annotated_img(cv_img, segs)
+show_(annotated_img)
+```
+
+![](index_files/figure-commonmark/cell-17-output-1.png)
+
 #### get the data
 
 ``` python
+# we will see some other data
 image_url = "http://images.cocodataset.org/val2017/000000039769.jpg"
 img = load_image(image_url)
 img
 ```
 
-![](index_files/figure-commonmark/cell-17-output-1.png)
+![](index_files/figure-commonmark/cell-18-output-1.png)
 
 > We need to tell what we want to detect from an image.
 
@@ -273,4 +304,4 @@ annotated_img = get_annotated_img(cv_img, segs)
 show_(annotated_img)
 ```
 
-![](index_files/figure-commonmark/cell-21-output-1.png)
+![](index_files/figure-commonmark/cell-22-output-1.png)
