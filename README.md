@@ -12,6 +12,12 @@
 This repo code mostly taken from
 [here](https://github.com/NielsRogge/Transformers-Tutorials/blob/master/PerSAM/Personalize_SAM_with_one_shot_using_Hugging_Face.ipynb)
 
+# Some consideration regarding installation
+
+> If you are trying to work in a environment where pytorch is already
+> installed, please make sure to go first setttings.ini file and remove
+> `torch` from requirements.
+
 ## Install
 
 ``` sh
