@@ -1,0 +1,13 @@
+website:
+  sidebar:
+    contents:
+      - index.ipynb
+      - 00_core.ipynb
+      - 01_auto_test.ipynb
+      - 02_ft_per_sam.ipynb
+      - 03_tile.ipynb
+      - 04_llava_next.ipynb
+      - 05_grounding_dino.ipynb
+      - 06_Idefics2.ipynb
+      - 07_segGpT.ipynb
+      - 08_mobile_SAM_try.ipynb
