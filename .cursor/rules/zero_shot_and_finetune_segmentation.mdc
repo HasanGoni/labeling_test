@@ -1,0 +1,21 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Zero-Shot and Fine-Tune Segmentation Rules
+
+## Zero-Shot Segmentation
+- Zero-shot segmentation workflows are primarily implemented in [nbs/07_segGpT.ipynb](mdc:nbs/07_segGpT.ipynb) (SegGPT) and [nbs/09_HQ_SAM.inference.ipynb](mdc:nbs/09_HQ_SAM.inference.ipynb) (HQ-SAM).
+- The SegGPT zero-shot pipeline is exported to [labeling_test/seg_gpt.py](mdc:labeling_test/seg_gpt.py), with the main entry point being the `get_mask` function.
+- HQ-SAM zero-shot inference is demonstrated in [nbs/09_HQ_SAM.inference.ipynb](mdc:nbs/09_HQ_SAM.inference.ipynb), which may use helper functions from [labeling_test/os_persam.py](mdc:labeling_test/os_persam.py) and [labeling_test/ft_persam.py](mdc:labeling_test/ft_persam.py).
+- Visualization helpers like `show_` are defined in [labeling_test/os_persam.py](mdc:labeling_test/os_persam.py).
+
+## Fine-Tuning Segmentation Models
+- Fine-tuning workflows for segmentation models are implemented in [nbs/00_core.ipynb](mdc:nbs/00_core.ipynb) (core utilities) and [nbs/01_auto_test.ipynb](mdc:nbs/01_auto_test.ipynb) (auto tests and training logic).
+- The fine-tuning logic is exported to [labeling_test/ft_persam.py](mdc:labeling_test/ft_persam.py), which contains functions for training and evaluation.
+- Training and evaluation scripts may use data preparation and mask processing utilities from [labeling_test/core.py](mdc:labeling_test/core.py) and [labeling_test/tile_image.py](mdc:labeling_test/tile_image.py).
+
+## General Notes
+- All segmentation workflows rely on helper functions for mask visualization and processing, which are scattered across the `labeling_test` directory and the `nbs` notebooks.
+- For any new segmentation workflow, start by reviewing the relevant notebook, then check the corresponding exported Python module for reusable functions.

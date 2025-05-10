@@ -1,0 +1,12 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# SegGPT Labeling Pipeline Rule
+
+- The main SegGPT labeling logic is developed in [nbs/07_segGpT.ipynb](mdc:nbs/07_segGpT.ipynb).
+- The notebook is exported to [labeling_test/seg_gpt.py](mdc:labeling_test/seg_gpt.py) using nbdev, and the core function is `get_mask`.
+- `get_mask` uses `overlay_mask_border_on_image_frm_img` to visualize segmentation masks on images. This function is defined in the notebook, not in the Python modules.
+- The function `show_` is used to display images and is implemented in [labeling_test/os_persam.py](mdc:labeling_test/os_persam.py).
+- The SegGPT workflow expects the visualization helper to be available in the notebook context, and `show_` to be imported from the os_persam module when running as a script.
